@@ -16,7 +16,7 @@
             generationSize = options.generationSize || 10,
             deleteCharProbability = options.deleteCharProbability || 0.05,
             addCharProbability = options.addCharProbability || 0.05,
-            propageteParent = options.propagateParent || true;
+            propagateParent = options.propagateParent || true;
 
 
         /**
@@ -67,7 +67,7 @@
                 generation.push(mutate(parent));
             }
 
-            if (propageteParent) {
+            if (propagateParent) {
                 generation.push(parent);
             }
 
@@ -135,7 +135,6 @@
                 generationCount++;
                 var generation = createGeneration(mutant);
                 mutant = artificiallySelect(generation, target);
-                console.log('survivor', mutant);
 
                 if (generationCount > 1000) {
                     console.error('Too many generations, exiting');
