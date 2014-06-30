@@ -5,7 +5,7 @@
         probability: 0.2,
         bases: ['red', 'blue', 'green', 'yellow', 'purple', 'pink'],
         mutate: function (input) {
-            input.color = utils.randomFromArray(this.bases);;
+            input.color = utils.randomFromArray(this.bases);
         }
     };
 

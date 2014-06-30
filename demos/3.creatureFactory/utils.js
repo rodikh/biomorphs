@@ -40,7 +40,7 @@
 
     /**
      * returns an item from an array by probability
-     * @param {[probability]} array An array of items that must have a probability property
+     * @param {[number]} array An array of items that must have a probability property
      * @param {number} [idleProbability] If defined, adds a probability of returning nothing
      * @returns {*}
      */

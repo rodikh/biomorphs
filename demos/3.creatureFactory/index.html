@@ -25,11 +25,9 @@
 <body>
     <h3>Parent:</h3>
     <div class="parent-element"></div>
+
     <h3>Children:</h3>
     <div class="creatures"></div>
-    <div class="console">
-        <pre></pre>
-    </div>
 
     <script src="utils.js"></script>
     <script src="genes.js"></script>
@@ -46,14 +44,17 @@
             }
         }
 
-        window.onpopstate = function (event) {
+        // If history state changed, reload creature
+        window.onpopstate = function () {
             createCreatureFromHash();
         };
 
+        // configure the creature's genes
         Creature.prototype.genes = [genes.colorGene, genes.heightGene, genes.widthGene];
 
         var nature = new Nature();
 
+        // create creature either from url params or from defaults
         if (utils.getHashValue('creature')) {
             createCreatureFromHash();
         } else {
