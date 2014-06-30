@@ -1,6 +1,11 @@
-(function (window, utils) {
+(function (utils) {
     'use strict';
 
+    /**
+     * A mutable creature
+     * @param {*} [options] Initial Values
+     * @constructor
+     */
     var Creature = function (options) {
         if (!options) {
             options = {};
@@ -13,6 +18,10 @@
         this.opacity = options.opacity || 1;
     };
 
+    /**
+     * Mutate the creature by mutating one of it's genes
+     * @returns {Creature}
+     */
     Creature.prototype.mutate = function () {
         var gene = utils.probableFromArray(this.genes, 0.5);
 
@@ -23,12 +32,21 @@
         return this;
     };
 
+    /**
+     * Spawn a new creature as an offspring of the current creature
+     * @returns {Creature}
+     */
     Creature.prototype.reproduce = function () {
         var newCreature = new Creature(this);
         newCreature.mutate();
         return newCreature;
     };
 
+    /**
+     * Draws the creature to a given element
+     * @param {HTMLElement} element Element to draw creatures onto
+     * @returns {HTMLElement} The created element
+     */
     Creature.prototype.draw = function (element) {
         var creatureElement = document.createElement('div');
         creatureElement.className = 'creature';
@@ -48,4 +66,4 @@
     };
 
     window.Creature = Creature;
-} (window, window.utils));
+} (window.utils));

@@ -1,4 +1,4 @@
-(function (window) {
+(function () {
     'use strict';
 
     /**
@@ -17,13 +17,14 @@
 
 
     /**
-     *
-     * @param creature
+     * Hashes an object and save it to the URL
+     * @param {string} name Object's name
+     * @param {*} object Object to hash
      */
-    function createUrl(creature) {
-        var json = JSON.stringify(creature);
+    function hashUrl(name, object) {
+        var json = JSON.stringify(object);
         var encoded = btoa(json);
-        window.location.href = '#creature=' + encoded;
+        window.location.href = '#' + name + '=' + encoded;
     }
 
     /**
@@ -76,54 +77,11 @@
         return null;
     }
 
-    /**
-     *
-     * @param obj
-     * @returns {*}
-     */
-    function clone(obj){
-        if(obj === null || typeof(obj) !== 'object') {
-            return obj;
-        }
-
-        var newObj = obj.constructor(),
-            key;
-
-        for(key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                newObj[key] = clone(obj[key]);
-            }
-        }
-        return newObj;
-    }
-
-    /**
-     *
-     */
-    function log() {
-        var line = '',
-            argumentsLength = arguments.length,
-            i;
-
-        for (i = 0; i < argumentsLength; i++ ) {
-            if (typeof arguments[i] === 'object') {
-                line += JSON.stringify(arguments[i]);
-            } else {
-                line += arguments[i];
-            }
-
-            line += ' ';
-        }
-        document.querySelector('.console pre').innerHTML += line + '\n';
-    }
-
     window.utils = {
         getHashValue: getHashValue,
-        createUrl: createUrl,
+        hashUrl: hashUrl,
         randomFromArray: randomFromArray,
-        probableFromArray: probableFromArray,
-        clone: clone,
-        log: log
+        probableFromArray: probableFromArray
     };
 
-} (window));
+} ());

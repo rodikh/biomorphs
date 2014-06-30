@@ -1,13 +1,30 @@
-(function (window, utils) {
+(function (utils) {
     'use strict';
 
+    /**
+     * An object that manages creatures and their evolution
+     * @constructor
+     */
     var Nature = function () {
     };
 
+    /**
+     * Create a new creature from the given constructor
+     * @param {function} Creature A creature constructor function
+     * @param {*} [options] Initial values for the creature
+     * @returns {Nature}
+     */
     Nature.prototype.createCreature = function (Creature, options) {
         this.creature = new Creature(options);
+
+        return this;
     };
 
+    /**
+     * Creates a generation of offspring from the stored creature.
+     * @param {number} [generationSize] Number of offspring to spawn
+     * @returns {Nature}
+     */
     Nature.prototype.createGeneration = function (generationSize) {
         this.generation = [];
         var i;
@@ -25,13 +42,22 @@
         return this;
     };
 
+    /**
+     * Click handler for a drawn creature
+     * @param {event} event Click event, used to find index of creature
+     */
     Nature.prototype.creatureSelect = function (event) {
         var index = event.currentTarget.getAttribute('data-index');
         this.creature = this.generation[index];
         this.createGeneration();
-        utils.createUrl(this.creature);
+        utils.hashUrl('creature', this.creature);
     };
 
+    /**
+     * Draws the given generation to an HTML element
+     * @param {[Creature]} generation Generation to draw
+     * @param {Creature} parent Parent of generation.
+     */
     Nature.prototype.drawGeneration = function (generation, parent) {
         var parentElement = document.querySelector('.parent-element');
 
@@ -51,10 +77,10 @@
 
         for (i = 0; i < generationLength; i++) {
             var creatureElement = generation[i].draw(element);
-            creatureElement.setAttribute('data-index', i);
+            creatureElement.setAttribute('data-index', i + '');
             creatureElement.onclick = this.creatureSelect.bind(this);
         }
     };
 
     window.Nature = Nature;
-} (window, window.utils));
+} (window.utils));
