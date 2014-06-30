@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .creature {
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            margin: 10px;
+            padding: 10px;
+
+            border: 1px solid #eee;
+            text-align: center;
+        }
+
+        .creature div {
+            display: inline-block;
+            vertical-align: top;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h3>Parent:</h3>
+    <div class="parent-element"></div>
+    <h3>Children:</h3>
+    <div class="creatures"></div>
+    <div class="console">
+        <pre></pre>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="genes.js"></script>
+    <script src="Nature.js"></script>
+    <script src="Creature.js"></script>
+    <script>
+
+        function createCreatureFromHash() {
+            var queryCreature = utils.getHashValue('creature');
+            if (queryCreature) {
+                var decoded = JSON.parse(atob(queryCreature));
+                nature.createCreature(Creature, decoded);
+                nature.createGeneration();
+            }
+        }
+
+        window.onpopstate = function (event) {
+            createCreatureFromHash();
+        };
+
+        Creature.prototype.genes = [genes.colorGene, genes.heightGene, genes.widthGene];
+
+        var nature = new Nature();
+
+        if (utils.getHashValue('creature')) {
+            createCreatureFromHash();
+        } else {
+            nature.createCreature(Creature);
+            nature.createGeneration();
+        }
+
+    </script>
+</body>
+</html>
