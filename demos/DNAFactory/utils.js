@@ -47,9 +47,27 @@
         return array[0];
     }
 
+    function log() {
+        var line = '',
+            argumentsLength = arguments.length,
+            i;
+
+        for (i = 0; i < argumentsLength; i++ ) {
+            if (typeof arguments[i] === 'object') {
+                line += JSON.stringify(arguments[i]);
+            } else {
+                line += arguments[i];
+            }
+
+            line += ' ';
+        }
+        document.querySelector('.console pre').innerHTML += line + '\n';
+    }
+
     window.utils = {
         randomFromArray: randomFromArray,
-        probableFromArray: probableFromArray
+        probableFromArray: probableFromArray,
+        log: log
     };
 
 } (window));

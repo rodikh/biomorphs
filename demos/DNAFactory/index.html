@@ -5,69 +5,72 @@
     <title></title>
 </head>
 <body>
+    <div class="console">
+        <pre></pre>
+    </div>
 
-<script src="utils.js"></script>
-<script src="DNA.js"></script>
-<script>
+    <script src="utils.js"></script>
+    <script src="DNA.js"></script>
+    <script>
 
-    var charactersGene = {
-        probability: 0.8,
-        bases: 'abcdefghijklmnopqrstuvwxyz ',
-        mutate: function (input) {
-            var randomBase = utils.randomFromArray(this.bases),
-                randomIndex = Math.floor(Math.random() * (input.length)),
-                output = input.substr(0, randomIndex) + randomBase + input.substr(randomIndex + 1);
+        var charactersGene = {
+            probability: 0.8,
+            bases: 'abcdefghijklmnopqrstuvwxyz ',
+            mutate: function (input) {
+                var randomBase = utils.randomFromArray(this.bases),
+                    randomIndex = Math.floor(Math.random() * (input.length)),
+                    output = input.substr(0, randomIndex) + randomBase + input.substr(randomIndex + 1);
 
-            if (randomBase === undefined) {
-                console.log('undefined output', output, randomBase, randomIndex);
+                if (randomBase === undefined) {
+                    console.log('undefined output', output, randomBase, randomIndex);
+                }
+
+                return output;
             }
+        };
 
-            return output;
-        }
-    };
+        var lengthGene = {
+            probability: 0.2,
+            bases: ['lengthen', 'shorten'],
+            mutate: function (input) {
+                var randomBase = utils.randomFromArray(this.bases),
+                    randomIndex = Math.floor(Math.random() * (input.length)),
+                    output;
 
-    var lengthGene = {
-        probability: 0.2,
-        bases: ['lengthen', 'shorten'],
-        mutate: function (input) {
-            var randomBase = utils.randomFromArray(this.bases),
-                randomIndex = Math.floor(Math.random() * (input.length)),
-                output;
+                if (randomBase === 'shorten') {
+                    output = input.substr(0, randomIndex) + input.substr(randomIndex + 1);
+                } else {
+                    output = input.substr(0, randomIndex) + ' ' + input.substr(randomIndex);
+                }
 
-            if (randomBase === 'shorten') {
-                output = input.substr(0, randomIndex) + input.substr(randomIndex + 1);
-            } else {
-                output = input.substr(0, randomIndex) + ' ' + input.substr(randomIndex);
+                return output;
             }
+        };
 
-            return output;
-        }
-    };
+        var uppercaseGene = {
+            probability: 0.4,
+            bases: ['uppercase', 'lowercase'],
+            mutate: function (input) {
+                var randomBase = utils.randomFromArray(this.bases),
+                    randomIndex = Math.floor(Math.random() * (input.length)),
+                    output;
 
-    var uppercaseGene = {
-        probability: 0.4,
-        bases: ['uppercase', 'lowercase'],
-        mutate: function (input) {
-            var randomBase = utils.randomFromArray(this.bases),
-                randomIndex = Math.floor(Math.random() * (input.length)),
-                output;
+                if (randomBase === 'uppercase') {
+                    output = input.substr(0, randomIndex) + input[randomIndex].toUpperCase() + input.substr(randomIndex + 1);
+                } else {
+                    output = input.substr(0, randomIndex) + input[randomIndex].toLowerCase() + input.substr(randomIndex + 1);
+                }
 
-            if (randomBase === 'uppercase') {
-                output = input.substr(0, randomIndex) + input[randomIndex].toUpperCase() + input.substr(randomIndex + 1);
-            } else {
-                output = input.substr(0, randomIndex) + input[randomIndex].toLowerCase() + input.substr(randomIndex + 1);
+                return output;
             }
+        };
 
-            return output;
-        }
-    };
+        var dna = new DNA([charactersGene, lengthGene, uppercaseGene]);
 
-    var dna = new DNA([charactersGene, lengthGene, uppercaseGene]);
-
-    dna.evolve('hello', 'rodik');
-    dna.evolve('hello', 'rodik hanukaev');
-    dna.evolve('hello', 'Rodik Hanukaev');
-    dna.evolve('rodik hanukaev', 'hello');
-</script>
+        dna.evolve('hello', 'rodik');
+        dna.evolve('hello', 'rodik hanukaev');
+        dna.evolve('hello', 'Rodik Hanukaev');
+        dna.evolve('rodik hanukaev', 'hello');
+    </script>
 </body>
 </html>

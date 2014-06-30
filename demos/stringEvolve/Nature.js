@@ -1,4 +1,4 @@
-(function (window) {
+(function (window, log) {
     'use strict';
 
     /**
@@ -137,14 +137,14 @@
                 mutant = artificiallySelect(generation, target);
 
                 if (generationCount > 1000) {
-                    console.error('Too many generations, exiting');
+                    log('Too many generations, exiting');
                     return false;
                 }
             }
-            console.log('successfully evolved ' + source + ' into ' + target + ' in ' + generationCount + ' generations');
+            log('successfully evolved ' + source + ' into ' + target + ' in ' + generationCount + ' generations');
             return true;
         };
     };
 
     window.Nature = Nature;
-} (window));
+} (window, window.log));

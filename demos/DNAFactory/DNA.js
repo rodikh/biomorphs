@@ -1,6 +1,5 @@
 (function (window, utils) {
     'use strict';
-
     /**
      * A DNA simulation
      * @param {[*]} genes list of mutable genes
@@ -112,11 +111,11 @@
                 mutant = artificiallySelect(generation, target);
 
                 if (generationCount > 2000) {
-                    console.error('Too many generations, exiting');
+                    utils.log('Too many generations, exiting');
                     return false;
                 }
             }
-            console.log('successfully evolved ' + source + ' into ' + target + ' in ' + generationCount + ' generations');
+            utils.log('successfully evolved ' + source + ' into ' + target + ' in ' + generationCount + ' generations');
             return true;
         };
     };

@@ -5,12 +5,32 @@
     <title></title>
 </head>
 <body>
+    <div class="console">
+        <pre></pre>
+    </div>
 
-<script src="Nature.js"></script>
-<script>
-    var nature = new Nature({generationSize: 30});
+    <script>
+        function log() {
+            var line = '',
+                    argumentsLength = arguments.length,
+                    i;
 
-    nature.evolve('hello', 'rodik');
-</script>
+            for (i = 0; i < argumentsLength; i++ ) {
+                if (typeof arguments[i] === 'object') {
+                    line += JSON.stringify(arguments[i]);
+                } else {
+                    line += arguments[i];
+                }
+
+                line += ' ';
+            }
+            document.querySelector('.console pre').innerHTML += line + '\n';
+        }
+    </script>
+    <script src="Nature.js"></script>
+    <script>
+        var nature = new Nature({generationSize: 30});
+        nature.evolve('hello', 'rodik');
+    </script>
 </body>
 </html>
