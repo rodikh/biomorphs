@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <canvas id="main" width="800" height="600"></canvas>
+
+    <script>
+        var canvas = document.querySelector('#main');
+        var ctx = canvas.getContext('2d');
+
+        function draw() {
+            ctx.beginPath();
+            ctx.arc(75,75,50,0,Math.PI*2,true); // Outer circle
+            ctx.moveTo(110,75);
+            ctx.arc(75,75,35,0,Math.PI,false);   // Mouth (clockwise)
+            ctx.moveTo(65,65);
+            ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
+            ctx.moveTo(95,65);
+            ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
+            ctx.stroke();
+        }
+
+        function drawShape(ctx, xoff, yoff) {
+            ctx.beginPath();
+            ctx.moveTo(124 + xoff, 15 + yoff);
+            ctx.bezierCurveTo(28 + xoff, 47 + yoff, 66 + xoff, 147 + yoff, 146 + xoff, 129 + yoff);
+            ctx.bezierCurveTo(241 + xoff, 108 + yoff, 205 + xoff, -1 + yoff, 124 + xoff, 14 + yoff);
+            ctx.stroke();
+        }
+
+        function drawEar(ctx, xoff, yoff) {
+            ctx.beginPath();
+            ctx.moveTo(151 + xoff, 242 + yoff);
+            ctx.bezierCurveTo(150 + xoff, 257 + yoff, 136 + xoff, 114 + yoff, 146 + xoff, 103 + yoff);
+            ctx.bezierCurveTo(167 + xoff, 78 + yoff, 294 + xoff, 205 + yoff, 282 + xoff, 196 + yoff);
+            ctx.stroke();
+        }
+
+        drawShape(ctx, 0, 0);
+        drawEar(ctx, 0, 0)
+    </script>
+</body>
+</html>
