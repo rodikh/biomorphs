@@ -103,7 +103,10 @@
             endPoint = jsBezier.pointOnCurve(headBezier, 1 - 0.07);
         }
 
-        var midPoint = {x: (startPoint.x + endPoint.x) / 2 + this.creature.ears.offset, y: endPoint.y - (50 * this.creature.ears.size)};
+        var midPoint = {
+            x: (startPoint.x + endPoint.x) / 2 + this.creature.ears.offset,
+            y: endPoint.y - (50 * this.creature.ears.size)
+        };
 
         var bezier1 = [
             startPoint,
@@ -153,7 +156,10 @@
             angle = graphics.getAngle(this.ctx, eyeCenter, {x: 0, y: 0});
         }
         var eyeballRadius = eyeRadius / 2;
-        var eyeball = {x: eyeCenter.x + eyeballRadius * Math.cos(angle), y: eyeCenter.y + eyeballRadius * Math.sin(angle)};
+        var eyeball = {
+            x: eyeCenter.x + eyeballRadius * Math.cos(angle),
+            y: eyeCenter.y + eyeballRadius * Math.sin(angle)
+        };
 
         this.ctx.beginPath();
         this.ctx.arc(eyeball.x, eyeball.y, eyeballRadius, 0, 2 * Math.PI, false);
@@ -204,7 +210,10 @@
             whiskersCenter,
             whiskersCenter,
             {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskers.length * side), y: whiskersCenter.y - 8 + this.creature.whiskers.curve}
+            {
+                x: whiskersCenter.x + (this.creature.whiskers.length * side),
+                y: whiskersCenter.y - 8 + this.creature.whiskers.curve
+            }
         ];
 
         whiskersCenter = {x: mouthPoint.x + (19 * side)  , y: mouthPoint.y - 15};
@@ -212,7 +221,10 @@
             whiskersCenter,
             whiskersCenter,
             {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskers.length * side), y: whiskersCenter.y - 8 + this.creature.whiskers.curve}
+            {
+                x: whiskersCenter.x + (this.creature.whiskers.length * side),
+                y: whiskersCenter.y - 8 + this.creature.whiskers.curve
+            }
         ];
 
         whiskersCenter = {x: mouthPoint.x + (19 * side) , y: mouthPoint.y - 6};
@@ -220,7 +232,10 @@
             whiskersCenter,
             whiskersCenter,
             {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskers.length * side), y: whiskersCenter.y - 8 + this.creature.whiskers.curve}
+            {
+                x: whiskersCenter.x + (this.creature.whiskers.length * side),
+                y: whiskersCenter.y - 8 + this.creature.whiskers.curve
+            }
         ];
 
         this.ctx.lineWidth = 0.6;

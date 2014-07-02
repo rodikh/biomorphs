@@ -46,7 +46,7 @@
      */
     CreatureRenderer.prototype.kill = function () {
         clearInterval(this.earInterval);
-        clearInterval(this.whiskersIntervalInterval);
+        clearInterval(this.whiskersInterval);
 
         document.removeEventListener('mousemove', this.mouseMove);
     };
@@ -118,7 +118,10 @@
             endPoint = jsBezier.pointOnCurve(headBezier, 1 - 0.07);
         }
 
-        var midPoint = {x: (startPoint.x + endPoint.x) / 2 + this.creature.earsOffset, y: endPoint.y - (50 * this.creature.earSize)};
+        var midPoint = {
+            x: (startPoint.x + endPoint.x) / 2 + this.creature.earsOffset,
+            y: endPoint.y - (50 * this.creature.earSize)
+        };
 
         var bezier1 = [
             startPoint,
@@ -168,7 +171,10 @@
             angle = graphics.getAngle(this.ctx, eyeCenter, {x: 0, y: 0});
         }
         var eyeballRadius = eyeRadius / 2;
-        var eyeball = {x: eyeCenter.x + eyeballRadius * Math.cos(angle), y: eyeCenter.y + eyeballRadius * Math.sin(angle)};
+        var eyeball = {
+            x: eyeCenter.x + eyeballRadius * Math.cos(angle),
+            y: eyeCenter.y + eyeballRadius * Math.sin(angle)
+        };
 
         this.ctx.beginPath();
         this.ctx.arc(eyeball.x, eyeball.y, eyeballRadius, 0, 2 * Math.PI, false);
@@ -214,28 +220,28 @@
      * @param side Specifies which side to draw
      */
     CreatureRenderer.prototype.drawWhiskers = function (mouthPoint, side) {
-        var whiskersCenter = {x: mouthPoint.x + (12 * side) , y: mouthPoint.y - 10};
+        var center = {x: mouthPoint.x + (12 * side) , y: mouthPoint.y - 10};
         var bezier1 = [
-            whiskersCenter,
-            whiskersCenter,
-            {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskersLength * side), y: whiskersCenter.y - 8 + this.creature.whiskersCurve}
+            center,
+            center,
+            {x: center.x + (20 * side), y: center.y - 8},
+            {x: center.x + (this.creature.whiskersLength * side), y: center.y - 8 + this.creature.whiskersCurve}
         ];
 
-        whiskersCenter = {x: mouthPoint.x + (19 * side)  , y: mouthPoint.y - 15};
+        center = {x: mouthPoint.x + (19 * side)  , y: mouthPoint.y - 15};
         var bezier2 = [
-            whiskersCenter,
-            whiskersCenter,
-            {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskersLength * side), y: whiskersCenter.y - 8 + this.creature.whiskersCurve}
+            center,
+            center,
+            {x: center.x + (20 * side), y: center.y - 8},
+            {x: center.x + (this.creature.whiskersLength * side), y: center.y - 8 + this.creature.whiskersCurve}
         ];
 
-        whiskersCenter = {x: mouthPoint.x + (19 * side) , y: mouthPoint.y - 6};
+        center = {x: mouthPoint.x + (19 * side) , y: mouthPoint.y - 6};
         var bezier3 = [
-            whiskersCenter,
-            whiskersCenter,
-            {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskersLength * side), y: whiskersCenter.y - 8 + this.creature.whiskersCurve}
+            center,
+            center,
+            {x: center.x + (20 * side), y: center.y - 8},
+            {x: center.x + (this.creature.whiskersLength * side), y: center.y - 8 + this.creature.whiskersCurve}
         ];
 
         this.ctx.lineWidth = 0.6;
