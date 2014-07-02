@@ -1,4 +1,4 @@
-(function (utils) {
+(function () {
     'use strict';
 
     window.genes = {
@@ -29,4 +29,4 @@
         }
     };
 
-} (window.utils));
+} ());

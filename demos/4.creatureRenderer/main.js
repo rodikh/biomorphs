@@ -1,4 +1,4 @@
-(function (CreatureRenderer, dat) {
+(function (CreatureRenderer) {
     'use strict';
 
     var canvas = document.querySelector('#creature1');
@@ -28,4 +28,4 @@
     window.cat = cat;
 
     renderer.draw();
-} (window.CreatureRenderer, window.dat));
+} (window.CreatureRenderer));

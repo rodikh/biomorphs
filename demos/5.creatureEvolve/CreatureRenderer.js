@@ -3,7 +3,6 @@
 
     /**
      * Renders a catlike creature and manages it's animations
-     * @param ctx Canvas context
      * @param {*} creature An object that describes the creature's properties
      * @constructor
      */

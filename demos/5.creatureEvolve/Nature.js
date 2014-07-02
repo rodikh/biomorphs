@@ -11,7 +11,6 @@
     /**
      * Create a new creature from the given constructor
      * @param {function} Creature A creature constructor function
-     * @param ctx Canvas context
      * @param options
      * @returns {Nature}
      */
