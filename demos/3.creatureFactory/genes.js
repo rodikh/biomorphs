@@ -25,7 +25,6 @@
         }
     };
 
-
     window.genes = {
         colorGene: colorGene,
         heightGene: heightGene,

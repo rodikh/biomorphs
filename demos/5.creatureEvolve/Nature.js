@@ -104,7 +104,7 @@
             canvas.height = 150;
             ctx = canvas.getContext('2d');
             creatureElement = generation[i].draw(ctx);
-            creatureElement.setAttribute('data-index', i + '');
+            creatureElement.setAttribute('data-index', i.toString());
             creatureElement.onclick = this.creatureSelect.bind(this);
         }
     };

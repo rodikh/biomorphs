@@ -7,7 +7,7 @@
      * @param {*} creature An object that describes the creature's properties
      * @constructor
      */
-    var CreatureRenderer = function(ctx, creature) {
+    var CreatureRenderer = function (ctx, creature) {
         var self = this;
         this.creature = creature;
         this.ctx = ctx;
@@ -18,7 +18,7 @@
             });
         }
 
-        this.ctx.canvas.addEventListener('click', function() {
+        this.ctx.canvas.addEventListener('click', function () {
             self.wiggleWhiskers();
             setTimeout(function () {
                 self.wiggleEars();
@@ -122,7 +122,6 @@
             endPoint
         ];
 
-
         this.ctx.beginPath();
 
         graphics.bezier(this.ctx, bezier1);
@@ -138,7 +137,7 @@
      * @param side Which eye to draw (1 or -1)
      */
     CreatureRenderer.prototype.drawEye = function (earPoint, side) {
-        var eyeCenter = {x: earPoint.x - (5 * side) , y: earPoint.y + 25},
+        var eyeCenter = {x: earPoint.x - (5 * side), y: earPoint.y + 25},
             eyeRadius = this.creature.eyes.size;
 
         this.ctx.fillStyle = this.creature.eyes.color;
@@ -205,7 +204,7 @@
      * @param side Specifies which side to draw
      */
     CreatureRenderer.prototype.drawWhiskers = function (mouthPoint, side) {
-        var whiskersCenter = {x: mouthPoint.x + (12 * side) , y: mouthPoint.y - 10};
+        var whiskersCenter = {x: mouthPoint.x + (12 * side), y: mouthPoint.y - 10};
         var bezier1 = [
             whiskersCenter,
             whiskersCenter,
@@ -216,7 +215,7 @@
             }
         ];
 
-        whiskersCenter = {x: mouthPoint.x + (19 * side)  , y: mouthPoint.y - 15};
+        whiskersCenter = {x: mouthPoint.x + (19 * side), y: mouthPoint.y - 15};
         var bezier2 = [
             whiskersCenter,
             whiskersCenter,
@@ -227,7 +226,7 @@
             }
         ];
 
-        whiskersCenter = {x: mouthPoint.x + (19 * side) , y: mouthPoint.y - 6};
+        whiskersCenter = {x: mouthPoint.x + (19 * side), y: mouthPoint.y - 6};
         var bezier3 = [
             whiskersCenter,
             whiskersCenter,
@@ -308,4 +307,3 @@
     window.CreatureRenderer = CreatureRenderer;
 
 } (window.graphics, window.jsBezier));
-

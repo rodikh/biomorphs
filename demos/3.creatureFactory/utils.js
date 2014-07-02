@@ -12,9 +12,8 @@
             return null;
         }
 
-        return location.hash.match(new RegExp(key+'=([^&]*)'))[1];
+        return location.hash.match(new RegExp(key + '=([^&]*)'))[1];
     }
-
 
     /**
      * Hashes an object and save it to the URL

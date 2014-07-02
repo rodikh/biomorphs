@@ -6,7 +6,7 @@
      * @param {*} creature An object that describes the creature's properties
      * @constructor
      */
-    var CreatureRenderer = function(creature) {
+    var CreatureRenderer = function (creature) {
         this.creature = creature;
     };
 
@@ -21,7 +21,7 @@
             graphics.onMouseMove(this.mouseMove);
         }
 
-        this.ctx.canvas.addEventListener('click', function() {
+        this.ctx.canvas.addEventListener('click', function () {
             self.wiggleWhiskers();
             setTimeout(function () {
                 self.wiggleEars();
@@ -137,7 +137,6 @@
             endPoint
         ];
 
-
         this.ctx.beginPath();
 
         graphics.bezier(this.ctx, bezier1);
@@ -153,7 +152,7 @@
      * @param side Which eye to draw (1 or -1)
      */
     CreatureRenderer.prototype.drawEye = function (earPoint, side) {
-        var eyeCenter = {x: earPoint.x - (5 * side) , y: earPoint.y + 25},
+        var eyeCenter = {x: earPoint.x - (5 * side), y: earPoint.y + 25},
             eyeRadius = this.creature.eyeSize;
 
         this.ctx.fillStyle = this.creature.eyeColor;
@@ -220,7 +219,7 @@
      * @param side Specifies which side to draw
      */
     CreatureRenderer.prototype.drawWhiskers = function (mouthPoint, side) {
-        var center = {x: mouthPoint.x + (12 * side) , y: mouthPoint.y - 10};
+        var center = {x: mouthPoint.x + (12 * side), y: mouthPoint.y - 10};
         var bezier1 = [
             center,
             center,
@@ -228,7 +227,7 @@
             {x: center.x + (this.creature.whiskersLength * side), y: center.y - 8 + this.creature.whiskersCurve}
         ];
 
-        center = {x: mouthPoint.x + (19 * side)  , y: mouthPoint.y - 15};
+        center = {x: mouthPoint.x + (19 * side), y: mouthPoint.y - 15};
         var bezier2 = [
             center,
             center,
@@ -236,7 +235,7 @@
             {x: center.x + (this.creature.whiskersLength * side), y: center.y - 8 + this.creature.whiskersCurve}
         ];
 
-        center = {x: mouthPoint.x + (19 * side) , y: mouthPoint.y - 6};
+        center = {x: mouthPoint.x + (19 * side), y: mouthPoint.y - 6};
         var bezier3 = [
             center,
             center,
@@ -314,4 +313,3 @@
     window.CreatureRenderer = CreatureRenderer;
 
 } (window.graphics, window.jsBezier));
-

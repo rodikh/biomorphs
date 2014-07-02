@@ -19,11 +19,11 @@
         this.whiskersLength = options.whiskersLength || 40;     // 30, 40, 50
         this.whiskersCurve = options.whiskersCurve || 0;
 
-        Object.defineProperty( this, 'drawable', {
+        Object.defineProperty(this, 'drawable', {
             value: new CreatureRenderer(this),
-            writable:true,
-            configurable:true,
-            enumerable:false // so that json.stringify doesn't hash this
+            writable: true,
+            configurable: true,
+            enumerable: false // so that json.stringify doesn't hash this
         });
     };
 

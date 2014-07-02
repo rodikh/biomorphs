@@ -1,7 +1,6 @@
 (function (window) {
     'use strict';
 
-
     /**
      * Returns a random item from an array
      * @param {[*]} array
@@ -52,7 +51,7 @@
             argumentsLength = arguments.length,
             i;
 
-        for (i = 0; i < argumentsLength; i++ ) {
+        for (i = 0; i < argumentsLength; i++) {
             if (typeof arguments[i] === 'object') {
                 line += JSON.stringify(arguments[i]);
             } else {

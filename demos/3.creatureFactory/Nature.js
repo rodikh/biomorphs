@@ -77,7 +77,7 @@
 
         for (i = 0; i < generationLength; i++) {
             var creatureElement = generation[i].draw(element);
-            creatureElement.setAttribute('data-index', i + '');
+            creatureElement.setAttribute('data-index', i.toString());
             creatureElement.onclick = this.creatureSelect.bind(this);
         }
     };

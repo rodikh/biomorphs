@@ -18,7 +18,6 @@
             addCharProbability = options.addCharProbability || 0.05,
             propagateParent = options.propagateParent || true;
 
-
         /**
          * Returns a random base character from the list of genetic bases
          * @returns {string} Random base character
@@ -89,7 +88,7 @@
             // decreases survivability the bigger the length difference is
             survivability = -Math.abs(input.length - target.length);
 
-            for (i = 0; i <inputLength; i++) {
+            for (i = 0; i < inputLength; i++) {
                 if (input[i] === target[i]) {
                     survivability++;
                 }

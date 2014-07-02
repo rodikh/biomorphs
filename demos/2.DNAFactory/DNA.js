@@ -63,7 +63,7 @@
             // decreases survivability the bigger the length difference is
             survivability = -Math.abs(input.length - target.length);
 
-            for (i = 0; i <inputLength; i++) {
+            for (i = 0; i < inputLength; i++) {
                 if (input[i] === target[i]) {
                     survivability++;
                 }
