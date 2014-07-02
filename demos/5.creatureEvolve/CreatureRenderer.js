@@ -7,12 +7,15 @@
      * @param {*} creature An object that describes the creature's properties
      * @constructor
      */
-    var CreatureRenderer = function(ctx, creature) {
-        var self = this;
+    var CreatureRenderer = function(creature) {
         this.creature = creature;
+    };
+
+    CreatureRenderer.prototype.init = function (ctx) {
+        var self = this;
         this.ctx = ctx;
 
-        if (creature.behavior !== 'indifferent') {
+        if (this.creature.behavior !== 'indifferent') {
             graphics.onMouseMove(function () {
                 self.draw();
             });
@@ -34,8 +37,9 @@
         setInterval(function () {
             self.wiggleWhiskers();
         }, whiskersTimer * 1000);
-    };
 
+        this.draw();
+    };
     /**
      * Main draw function
      */
@@ -103,7 +107,7 @@
             endPoint = jsBezier.pointOnCurve(headBezier, 1 - 0.07);
         }
 
-        var midPoint = {x: (startPoint.x + endPoint.x) / 2 + this.creature.ears.offset, y: endPoint.y - (50 * this.creature.ears.size)};
+        var midPoint = {x: (startPoint.x + endPoint.x) / 2 + this.creature.earsOffset, y: endPoint.y - (50 * this.creature.earSize)};
 
         var bezier1 = [
             startPoint,
@@ -136,18 +140,18 @@
      */
     CreatureRenderer.prototype.drawEye = function (earPoint, side) {
         var eyeCenter = {x: earPoint.x - (5 * side) , y: earPoint.y + 25},
-            eyeRadius = this.creature.eyes.size;
+            eyeRadius = this.creature.eyeSize;
 
-        this.ctx.fillStyle = this.creature.eyes.color;
+        this.ctx.fillStyle = this.creature.eyeColor;
 
         this.ctx.beginPath();
         this.ctx.arc(eyeCenter.x, eyeCenter.y, eyeRadius, 0, 2 * Math.PI, false);
         this.ctx.stroke();
 
         var angle;
-        if (this.creature.behavior.interested === 'following') {
+        if (this.creature.behavior === 'following') {
             angle = graphics.getAngleToMouse(this.ctx, eyeCenter);
-        } else if (this.creature.behavior.interested === 'ignoring') {
+        } else if (this.creature.behavior === 'ignoring') {
             angle = graphics.getAngleToMouse(this.ctx, eyeCenter) - 180;
         } else {
             angle = graphics.getAngle(this.ctx, eyeCenter, {x: 0, y: 0});
@@ -204,7 +208,7 @@
             whiskersCenter,
             whiskersCenter,
             {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskers.length * side), y: whiskersCenter.y - 8 + this.creature.whiskers.curve}
+            {x: whiskersCenter.x + (this.creature.whiskersLength * side), y: whiskersCenter.y - 8 + this.creature.whiskersCurve}
         ];
 
         whiskersCenter = {x: mouthPoint.x + (19 * side)  , y: mouthPoint.y - 15};
@@ -212,7 +216,7 @@
             whiskersCenter,
             whiskersCenter,
             {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskers.length * side), y: whiskersCenter.y - 8 + this.creature.whiskers.curve}
+            {x: whiskersCenter.x + (this.creature.whiskersLength * side), y: whiskersCenter.y - 8 + this.creature.whiskersCurve}
         ];
 
         whiskersCenter = {x: mouthPoint.x + (19 * side) , y: mouthPoint.y - 6};
@@ -220,7 +224,7 @@
             whiskersCenter,
             whiskersCenter,
             {x: whiskersCenter.x + (20 * side), y: whiskersCenter.y - 8},
-            {x: whiskersCenter.x + (this.creature.whiskers.length * side), y: whiskersCenter.y - 8 + this.creature.whiskers.curve}
+            {x: whiskersCenter.x + (this.creature.whiskersLength * side), y: whiskersCenter.y - 8 + this.creature.whiskersCurve}
         ];
 
         this.ctx.lineWidth = 0.6;
@@ -240,19 +244,19 @@
         var progress = 0;
         var interval = setInterval(function () {
             if (progress < 3) {
-                self.creature.whiskers.curve += 3;
+                self.creature.whiskersCurve += 3;
             } else if (progress < 8) {
-                self.creature.whiskers.curve -= 2;
+                self.creature.whiskersCurve -= 2;
             } else if (progress < 12) {
-                self.creature.whiskers.curve += 1;
+                self.creature.whiskersCurve += 1;
             } else if (progress < 16) {
-                self.creature.whiskers.curve -= 1;
+                self.creature.whiskersCurve -= 1;
             } else if (progress > 45 && progress < 48) {
-                self.creature.whiskers.curve += 3;
+                self.creature.whiskersCurve += 3;
             } else if (progress > 47 && progress < 52) {
-                self.creature.whiskers.curve -= 1;
+                self.creature.whiskersCurve -= 1;
             } else {
-                self.creature.whiskers.curve = 0;
+                self.creature.whiskersCurve = 0;
                 clearInterval(interval);
             }
 
@@ -269,19 +273,19 @@
         var progress = 0;
         var interval = setInterval(function () {
             if (progress < 3) {
-                self.creature.ears.offset += 2;
+                self.creature.earsOffset += 2;
             } else if (progress < 8) {
-                self.creature.ears.offset -= 2;
+                self.creature.earsOffset -= 2;
             } else if (progress < 12) {
-                self.creature.ears.offset += 1;
+                self.creature.earsOffset += 1;
             } else if (progress < 16) {
-                self.creature.ears.offset -= 1;
+                self.creature.earsOffset -= 1;
             } else if (progress > 45 && progress < 48) {
-                self.creature.ears.offset += 2;
+                self.creature.earsOffset += 2;
             } else if (progress > 47 && progress < 52) {
-                self.creature.ears.offset -= 1;
+                self.creature.earsOffset -= 1;
             } else {
-                self.creature.ears.offset = 0;
+                self.creature.earsOffset = 0;
                 clearInterval(interval);
             }
 
