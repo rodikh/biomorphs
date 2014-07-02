@@ -71,5 +71,12 @@
         return newCreature;
     };
 
+    /**
+     * cleans up all event listeners and collects garbage
+     */
+    Creature.prototype.kill = function () {
+        this.drawable.kill();
+    };
+
     window.Creature = Creature;
 } (window.utils, window.CreatureRenderer));

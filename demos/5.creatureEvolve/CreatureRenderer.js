@@ -15,9 +15,10 @@
         this.ctx = ctx;
 
         if (this.creature.behavior !== 'indifferent') {
-            graphics.onMouseMove(function () {
+            this.mouseMove = function () {
                 self.draw();
-            });
+            };
+            graphics.onMouseMove(this.mouseMove);
         }
 
         this.ctx.canvas.addEventListener('click', function() {
@@ -28,17 +29,28 @@
         }, false);
 
         var earsTimer = Math.random() * 20 + 5;
-        setInterval(function () {
+        this.earInterval = setInterval(function () {
             self.wiggleEars();
         }, earsTimer * 1000);
 
         var whiskersTimer = Math.random() * 20 + 10;
-        setInterval(function () {
+        this.whiskersInterval = setInterval(function () {
             self.wiggleWhiskers();
         }, whiskersTimer * 1000);
 
         this.draw();
     };
+
+    /**
+     * cleans up all event listeners and collects garbage
+     */
+    CreatureRenderer.prototype.kill = function () {
+        clearInterval(this.earInterval);
+        clearInterval(this.whiskersIntervalInterval);
+
+        document.removeEventListener('mousemove', this.mouseMove);
+    };
+
     /**
      * Main draw function
      */

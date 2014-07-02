@@ -26,6 +26,10 @@
      * @returns {Nature}
      */
     Nature.prototype.createGeneration = function (generationSize) {
+        if (this.generation) {
+            this.killGeneration();
+        }
+
         this.generation = [];
         var i;
 
@@ -40,6 +44,18 @@
         this.drawGeneration(this.generation, this.creature);
 
         return this;
+    };
+
+    /**
+     * cleans up all event listeners and collects garbage
+     */
+    Nature.prototype.killGeneration = function () {
+        var i,
+            generationLength = this.generation.length;
+
+        for (i = 0; i < generationLength; i++) {
+            this.generation[i].kill();
+        }
     };
 
     /**
