@@ -73,14 +73,14 @@
 
             var earStart = jsBezier.pointOnCurve(bezier2, 0.42);
             var earEnd = jsBezier.pointOnCurve(bezier2, 0.11);
-            drawEar(earStart, earEnd);
+            drawEar(bezier2, 'left');
 
             var eyeCenter = {x: earStart.x + 32, y: earStart.y + 2};
             drawEye(eyeCenter);
 
             earStart = jsBezier.pointOnCurve(bezier1, 1 - 0.21);
             earEnd = jsBezier.pointOnCurve(bezier1, 1 - 0.08);
-            drawEar(earStart, earEnd, 'right');
+            drawEar(bezier1, 'right');
 
             eyeCenter = {x: earStart.x - 8, y: earStart.y + 22};
             drawEye(eyeCenter);
@@ -89,23 +89,38 @@
 
         }
 
-        function drawEar(earStart, earEnd, direction) {
-            var earSize = 2;
+        function drawEar(headBezier, side) {
+            var earPoints;
+            if (side === 'left') {
+                earPoints = {
+                    start: jsBezier.pointOnCurve(headBezier, 0.42),
+                    end: jsBezier.pointOnCurve(headBezier, 0.11)
+                };
+            } else {
+                earPoints = {
+                    start: jsBezier.pointOnCurve(headBezier, 1 - 0.21),
+                    end: jsBezier.pointOnCurve(headBezier, 1 - 0.08)
+                }
+            }
 
             var bezier1 = [];
-            bezier1[0] = earStart;
-            bezier1[3] = {x: earStart.x + ((earEnd.x - earStart.x) / 2), y: earEnd.y - 20};
+            bezier1[0] = earPoints.start;
+            bezier1[3] = {x: bezier1[0].x + ((earPoints.end.x - bezier1[0].x) / 2), y: earPoints.end.y - 20};
             bezier1[1] = bezier1[0];
-            if (direction) {
-                bezier1[2] = {x: bezier1[3].x + 5, y: bezier1[3].y};
-            } else {
+            if (side === 'left') {
                 bezier1[2] = {x: bezier1[3].x - 5, y: bezier1[3].y};
+            } else {
+                bezier1[2] = {x: bezier1[3].x + 5, y: bezier1[3].y};
             }
 
             var bezier2 = [];
             bezier2[0] = bezier1[3];
-            bezier2[3] = earEnd;
-            bezier2[1] = {x: bezier2[0].x + 2, y: bezier2[0].y};
+            bezier2[3] = earPoints.end;
+            if (side === 'left') {
+                bezier2[1] = {x: bezier2[0].x - 2, y: bezier2[0].y};
+            } else {
+                bezier2[1] = {x: bezier2[0].x + 2, y: bezier2[0].y};
+            }
             bezier2[2] = bezier1[3];
 
             ctx.beginPath();
@@ -115,16 +130,27 @@
         }
 
         function drawEye(eyeCenter) {
+            var eyeRadius = cat.eyes.size;
+
+            ctx.fillStyle = cat.eyes.color;
+
             ctx.beginPath();
-            ctx.arc(eyeCenter.x, eyeCenter.y, 15, 0, 2 * Math.PI, false);
+            ctx.arc(eyeCenter.x, eyeCenter.y, eyeRadius, 0, 2 * Math.PI, false);
             ctx.stroke();
 
-            var angle = getAngle(eyeCenter, mouse);
-            var radius = 7;
-            var eyeball = {x: eyeCenter.x + radius * Math.cos(angle), y: eyeCenter.y + radius * Math.sin(angle)};
+            var angle;
+            if (cat.behavior.interested === 'following') {
+                angle = getAngle(eyeCenter, mouse);
+            } else if (cat.behavior.interested === 'ignoring') {
+                angle = getAngle(eyeCenter, mouse) - 180;
+            } else {
+                angle = getAngle(eyeCenter, {x: 0, y: 0});
+            }
+            var eyeballRadius = eyeRadius / 2;
+            var eyeball = {x: eyeCenter.x + eyeballRadius * Math.cos(angle), y: eyeCenter.y + eyeballRadius * Math.sin(angle)};
 
             ctx.beginPath();
-            ctx.arc(eyeball.x, eyeball.y, 8, 0, 2 * Math.PI, false);
+            ctx.arc(eyeball.x, eyeball.y, eyeballRadius, 0, 2 * Math.PI, false);
             ctx.fill();
 
 
@@ -147,6 +173,16 @@
             bezier(bezier1);
             bezier(bezier2);
             ctx.stroke();
+        }
+
+        var cat = {
+            eyes: {
+                size: 15,
+                color: 'green'
+            },
+            behavior: {
+                interested: 'indifferent'
+            }
         }
 
         drawHead();
