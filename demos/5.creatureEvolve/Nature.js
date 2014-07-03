@@ -70,6 +70,23 @@
     };
 
     /**
+     * Draws a single child to an element
+     * @param element Element to draw on
+     * @param creature Creature to draw
+     * @returns {HTMLElement} Created element
+     */
+    Nature.prototype.drawChild = function (element, creature) {
+        var canvas = document.createElement('canvas');
+        element.appendChild(canvas);
+        canvas.width = 150;
+        canvas.height = 150;
+        var ctx = canvas.getContext('2d');
+        creature.draw(ctx);
+
+        return canvas;
+    };
+
+    /**
      * Draws the given generation to an HTML element
      * @param {[Creature]} generation Generation to draw
      * @param {Creature} parent Parent of generation.
@@ -81,12 +98,8 @@
             parentElement.removeChild(parentElement.lastChild);
         }
 
-        var canvas = document.createElement('canvas');
-        parentElement.appendChild(canvas);
-        canvas.width = 150;
-        canvas.height = 150;
-        var ctx = canvas.getContext('2d');
-        parent.draw(ctx);
+        this.drawChild(parentElement, parent);
+
         var i,
             generationLength = generation.length,
             element = document.querySelector('.creatures');
@@ -95,15 +108,8 @@
             element.removeChild(element.lastChild);
         }
 
-        var creatureElement;
-
         for (i = 0; i < generationLength; i++) {
-            canvas = document.createElement('canvas');
-            element.appendChild(canvas);
-            canvas.width = 150;
-            canvas.height = 150;
-            ctx = canvas.getContext('2d');
-            creatureElement = generation[i].draw(ctx);
+            var creatureElement = this.drawChild(element, generation[i]);
             creatureElement.setAttribute('data-index', i.toString());
             creatureElement.onclick = this.creatureSelect.bind(this);
         }

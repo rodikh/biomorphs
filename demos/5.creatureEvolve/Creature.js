@@ -15,9 +15,9 @@
         this.eyeColor = options.eyeColor || 'blue';
         this.behavior = options.behavior || 'indifferent';      // following, ignoring, indifferent
         this.earSize = options.earSize || 0.3;                  // 0.1, 0.3, 0.5
-        this.earsOffset = options.earOffset || 0;
         this.whiskersLength = options.whiskersLength || 40;     // 30, 40, 50
-        this.whiskersCurve = options.whiskersCurve || 0;
+        this.whiskersCurve = 0;
+        this.earsOffset = 0;
 
         Object.defineProperty(this, 'drawable', {
             value: new CreatureRenderer(this),
